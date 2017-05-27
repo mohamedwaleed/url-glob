@@ -32,13 +32,13 @@ function UrlGlob(patternUrl) {
 
 		var patternStringTokens = [];
 		var current = '';
-		for(var i = 0 ; i < patternString.length ; i ++ ) {
-			if(patternString[i] === '*'){
+		for(var x = 0 ; x < patternString.length ; x ++ ) {
+			if(patternString[x] === '*'){
 				patternStringTokens.push(current);
 				patternStringTokens.push('*');
 				current = '';
 			}else {
-				current += patternString[i];
+				current += patternString[x];
 			}
 		}
 		if(current !== ''){
@@ -81,31 +81,29 @@ function UrlGlob(patternUrl) {
 		}
 		return true;
 	};
-
+	var removeEmptyStrings = function(array) {
+		for(var x = 0;x < array.length ; x++) {
+			if(array[x].length === 0){
+				array.splice(x,1);
+				x--;
+			}
+		}
+	};
 	
 	patternUrlTokens = tokenize(patternUrl.trim());
-	for(var x = 0;x < patternUrlTokens.length ; x++) {
-		if(patternUrlTokens[x].length === 0){
-			patternUrlTokens.splice(x,1);
-			x--;
-		}
-	}
+	removeEmptyStrings(patternUrlTokens);
 	this.match = function(url) {
 
 		if(!validateUrl(url.trim())) {
 			throw new Error('Invalid pattern url');
 		}
 		var urlTokens = tokenize(url.trim());
-		for(var x = 0;x < urlTokens.length ; x++) {
-		if(urlTokens[x].length === 0){
-				urlTokens.splice(x,1);
-				x--;
-			}
-		}
+		removeEmptyStrings(urlTokens);
 		var i = 0 , j = 0 ;
 		while(i < patternUrlTokens.length && j < urlTokens.length){
 			if(patternUrlTokens[i] === '*' || patternUrlTokens[i] === urlTokens[j]){
-				i++,j++;
+				i++;
+				j++;
 			}else if(patternUrlTokens[i] === '**'){
 				if(i + 1 === patternUrlTokens.length) {
 					return true;
@@ -117,7 +115,8 @@ function UrlGlob(patternUrl) {
 				if(!checkEqualsWithGlobing(patternUrlTokens[i], urlTokens[i])){
 					return false;
 				}
-				i++,j++;
+				i++;
+				j++;
 			}
 			
 		}
