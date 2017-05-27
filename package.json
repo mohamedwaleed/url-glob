@@ -1,7 +1,6 @@
 {
   "name": "url-glob",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
     "start": "node ./src/app",
     "test": "mocha --recursive ./test"
