@@ -61,6 +61,11 @@ describe('Url globing test', () => {
         var actual = urlGlob.match('https://mail.google.com/mail/u/0/?tab=wm#inbox');
         assert.equal(actual, true);
       });
+      it('it should return true in case of f/**/m*d,https://f/df/sds/mfffd', () => {
+        var urlGlob = new UrlGlob('f/**/m*d');
+        var actual = urlGlob.match('https://f/df/sds/mfffd');
+        assert.equal(actual, true);
+      });
   });
 
 });

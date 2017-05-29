@@ -109,10 +109,11 @@ function UrlGlob(patternUrl) {
 					return true;
 				}
 				while(j < urlTokens.length  && 
-				 patternUrlTokens[i + 1] !== urlTokens[j]) j++;
+				 (!checkEqualsWithGlobing(patternUrlTokens[i + 1], urlTokens[j]))) j++;
+						
 				i++;
 			}else if(patternUrlTokens[i] !== urlTokens[j]) {
-				if(!checkEqualsWithGlobing(patternUrlTokens[i], urlTokens[i])){
+				if(!checkEqualsWithGlobing(patternUrlTokens[i], urlTokens[j])){
 					return false;
 				}
 				i++;
