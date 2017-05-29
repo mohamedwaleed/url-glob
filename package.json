@@ -1,6 +1,6 @@
 {
   "name": "url-glob",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "scripts": {
     "start": "node ./src/app",
     "build": "node ./src/url-glob",
